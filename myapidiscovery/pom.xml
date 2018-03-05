@@ -10,8 +10,12 @@
 	<artifactId>myapidiscovery</artifactId>
 
 	<dependencies>
-	
+
 		<!-- app depos -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-aws-autoconfigure</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -20,7 +24,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
-		
+
 		<!-- test depos -->
 		<dependency>
 			<groupId>ie.bwc.kieran</groupId>
@@ -33,7 +37,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
