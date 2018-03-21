@@ -12,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"ie.bwc.myapi.tierservice"})
-@ComponentScan({"ie.bwc.myapi.tierweb", "ie.bwc.myapi.config", "ie.bwc.myapi.tierservice"})
+@EnableFeignClients(basePackages = { "ie.bwc.myapi.tierservice" })
+@ComponentScan({ "ie.bwc.myapi.tierweb", "ie.bwc.myapi.config", "ie.bwc.myapi.tierservice"})
 @SpringBootApplication
 public class TomcatApp {
 
@@ -21,8 +21,8 @@ public class TomcatApp {
 	 * 
 	 * @param args
 	 */
-    public static void main(String[] args) {
-        SpringApplication.run(TomcatApp.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(TomcatApp.class, args);
+	}
 
 }

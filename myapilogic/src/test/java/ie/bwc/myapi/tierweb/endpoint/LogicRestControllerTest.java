@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import ie.bwc.myapi.annot.UnitTest;
 import ie.bwc.myapi.models.Data;
 import ie.bwc.myapi.tierservice.Logic;
+import ie.bwc.myapi.tierservice.WebsocketClient;
 
 /**
  * 
@@ -35,6 +36,8 @@ public class LogicRestControllerTest {
 
 	@MockBean
 	private Logic service;
+	@MockBean
+	private WebsocketClient wsCleint;
 	@MockBean
 	private DiscoveryClient discoveryClient;
 
