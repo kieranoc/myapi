@@ -29,16 +29,16 @@ import java.net.URISyntaxException;
  */
 @Service
 public class WebsocketClient {
-	
+
 	private StompSession session;
-	
+
 	/**
 	 * 
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
 	@PostConstruct
-	public void initialise() throws InterruptedException, ExecutionException {
+	public void initialise() throws InterruptedException {
 		WebSocketClient webSocketClient = new StandardWebSocketClient();
 		WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
 		stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -46,8 +46,11 @@ public class WebsocketClient {
 
 		String url = "ws://127.0.0.1:8082/hello";
 		StompSessionHandler sessionHandler = new MySessionHandler();
-		stompClient.connect(url, sessionHandler);
-		session = stompClient.connect(url, sessionHandler).get();
+		try {
+			session = stompClient.connect(url, sessionHandler).get();
+		} catch (ExecutionException dex) {
+			System.out.println("Websocket not present, failing over");
+		}
 	}
 
 	/**
@@ -100,7 +103,8 @@ public class WebsocketClient {
 		 */
 		@Override
 		public void handleFrame(StompHeaders headers, Object payload) {
-			System.out.println("Client1 Received: " + ((SocketPayload) payload).getContent()  + "....." + headers.keySet() + "]......[" + headers.entrySet());
+			System.out.println(
+					"Client1 Received: " + ((SocketPayload) payload).getContent() + "....." + headers.keySet() + "]......[" + headers.entrySet());
 		}
 	}
 }
