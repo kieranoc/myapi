@@ -1,6 +1,7 @@
 package ie.bwc.myapi.tierweb.endpoint;
 
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ie.bwc.myapi.models.Data;
 import ie.bwc.myapi.tierservice.Logic;
+import ie.bwc.myapi.tierservice.MQClient;
 import ie.bwc.myapi.tierservice.WebsocketClient;
 
 /**
@@ -18,11 +20,13 @@ import ie.bwc.myapi.tierservice.WebsocketClient;
  */
 @RestController
 public class LogicRestController {
-	
+
 	@Autowired
-	private Logic service;
+	private Logic httpRestClient;
 	@Autowired
-	private WebsocketClient client;
+	private WebsocketClient websocketClient;
+	@Autowired
+	private MQClient mqClient;
 
 	/**
 	 * 
@@ -30,21 +34,30 @@ public class LogicRestController {
 	 */
 	@RequestMapping("/")
 	public Data home() {
-		return service.buildResult();
+		return httpRestClient.buildResult();
 	}
-	
+
 	/**
 	 * 
 	 * @return
-	 * @throws ExecutionException 
-	 * @throws InterruptedException 
-	 * @throws URISyntaxException 
-	 * @throws TimeoutException 
+	 * @throws ExecutionException
+	 * @throws InterruptedException
+	 * @throws URISyntaxException
+	 * @throws TimeoutException
 	 */
 	@RequestMapping("/callsocket")
 	public String callsocket() throws InterruptedException, ExecutionException, TimeoutException, URISyntaxException {
-		client.callSocket();
+		websocketClient.callSocket();
 		return "hello";
+	}
+
+	/**
+	 * 
+	 */
+	@RequestMapping("/callmq")
+	public void callmq() {
+		Data d = Data.builder().withId(1).withSomething("test").withTimestamp(LocalDateTime.now()).build();
+		mqClient.send("mailbox", d);
 	}
 	
 }
