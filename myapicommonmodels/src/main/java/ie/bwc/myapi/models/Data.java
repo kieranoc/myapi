@@ -1,5 +1,6 @@
 package ie.bwc.myapi.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,12 +17,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonRootName(value = "outer")
 @JsonIgnoreProperties({ "id" })
 @JsonInclude(Include.NON_NULL)
-public class Data {
+public class Data implements Serializable {
+
+	private static final long serialVersionUID = 8637876559994230612L;
 	
 	private Integer id;
 	private String something;
 	private LocalDateTime timestamp;
 	
+	/**
+	 * 
+	 */
 	public Data() {}
 	
 	/**
