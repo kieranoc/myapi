@@ -245,5 +245,6 @@
 		<module>myapicommonmodels</module>
 		<module>myapidiscovery</module>
 		<module>myapilogic2</module>
+		<module>myapilogicMQ</module>
 	</modules>
 </project>
